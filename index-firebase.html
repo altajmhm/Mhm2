@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التاج - منيو المطعم</title>
+    <style>
+        :root {
+            --primary-color: #b8860b; /* ذهبي دافئ */
+            --primary-dark: #8b6508; /* ذهبي داكن */
+            --primary-light: #e6c88c; /* ذهبي فاتح */
+            --secondary-color: #8b0000; /* أحمر داكن */
+            --secondary-light: #a52a2a; /* أحمر متوسط */
+            --background-color: #fffaf0; /* لون عاجي */
+            --background-light: #fffdf8; /* عاجي فاتح */
+            --text-color: #333333; /* رمادي داكن للنص */
+            --text-light: #5a5a5a; /* رمادي متوسط */
+            --shadow-color: rgba(139, 0, 0, 0.1); /* ظلال حمراء خفيفة */
+            --border-color: #e0c9a6; /* حدود ذهبية فاتحة */
+            --error-color: #d9534f; /* لون الأخطاء */
+            --success-color: #5cb85c; /* لون النجاح */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-color);
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--background-light) 0%, var(--background-color) 50%, var(--background-light) 100%);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px var(--shadow-color);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--background-light) 0%, #fff4e4 100%),
+                        radial-gradient(circle at center, rgba(184, 134, 11, 0.1) 0%, transparent 70%);
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid var(--primary-color);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .language-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(184, 134, 11, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(184, 134, 11, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        }
+        
+        .admin-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.4);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 3px solid var(--primary-light);
+            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: rotate(10deg) scale(1.05);
+            box-shadow: 0 10px 25px rgba(184, 134, 11, 0.5);
+        }
+        
+        .restaurant-name {
+            color: var(--primary-dark);
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .restaurant-name:hover {
+            text-shadow: 2px 2px 12px rgba(184, 134, 11, 0.3);
+        }
+        
+        .restaurant-subtitle {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-top: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .category-tabs {
+            display: flex;
+            padding: 20px 15px 0;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-light) var(--background-color);
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .category-tabs::-webkit-scrollbar-track {
+            background: var(--background-color);
+        }
+        
+        .category-tabs::-webkit-scrollbar-thumb {
+            background-color: var(--primary-light);
+            border-radius: 6px;
+        }
+        
+        .category-tab {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 6px 15px rgba(184, 134, 11, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .menu-content {
+            padding: 20px 15px;
+        }
+        
+        .menu-item {
+            background: linear-gradient(135deg, var(--background-light), var(--background-color));
+            border-radius: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .item-info {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .item-name {
+            color: var(--text-color);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .item-price {
+            color: var(--secondary-color);
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--background-light), var(--background-color));
+            background-size: cover;
+            background-position: center;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(139, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .item-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(184, 134, 11, 0.1));
+            z-index: 1;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--secondary-color);
+            background: rgba(255, 235, 235, 0.3);
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px dashed var(--secondary-color);
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: linear-gradient(135deg, var(--background-light) 0%, var(--background-color) 50%, var(--background-light) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-form {
+            max-width: 350px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+        
+        .login-form h2 {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--background-light);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(184, 134, 11, 0.2);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(184, 134, 11, 0.2);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(184, 134, 11, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--secondary-light), var(--secondary-color));
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--secondary-color), #600);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: #fff;
+        }
+        
+        .admin-content {
+            display: none;
+            color: var(--text-color);
+        }
+        
+        .admin-header {
+            background: white;
+            color: var(--text-color);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        
+        .admin-section {
+            background: white;
+            color: var(--text-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        
+        .admin-section h3 {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .section-item, .menu-item-admin {
+            background: var(--background-light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .section-item:hover, .menu-item-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(184, 134, 11, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.2);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .modal h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--secondary-light);
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 5px;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .success-message {
+            color: var(--success-color);
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 5px;
+            border: 1px solid #c8e6c9;
+        }
+        
+        /* Animation for language switch */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* RTL/LTR direction styles */
+        [dir="rtl"] {
+            text-align: right;
+        }
+        
+        [dir="ltr"] {
+            text-align: left;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .restaurant-name {
+                font-size: 28px;
+            }
+            
+            .category-tab {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 16px;
+            }
+        }
+    </style>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD8D4ztuf-pHgSiuQB9PXjQN85htmUie10",
+    authDomain: "mhm55-b552d.firebaseapp.com",
+    projectId: "mhm55-b552d",
+    storageBucket: "mhm55-b552d.appspot.com",
+    messagingSenderId: "272180397601",
+    appId: "1:272180397601:web:f6fbf63cf6f87d72134560",
+    measurementId: "G-F3665G5KL4"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <!-- صفحة المنيو للزبائن -->
+        <div id="customer-view">
+            <div class="header">
+                <button class="language-btn" id="language-btn">
+                    <span id="language-icon">🌐</span>
+                    <span id="language-text">EN</span>
+                </button>
+                
+                <div class="logo-section">
+                    <div class="restaurant-name" id="restaurant-name">التاج</div>
+                    <div class="logo" id="logo-text">التاج</div>
+                </div>
+                <div class="restaurant-subtitle" id="restaurant-subtitle">خيارك الأفضل</div>
+            </div>
+            
+            <div class="category-tabs" id="category-tabs">
+                <!-- سيتم ملؤها بالجافا سكريبت -->
+            </div>
+            
+            <div class="menu-content" id="menu-content">
+                <!-- سيتم ملؤها بالجافا سكريبت -->
+            </div>
+        </div>
+        
+        <!-- لوحة التحكم للمدير -->
+        <div id="admin-panel" class="admin-panel">
+            <!-- نموذج تسجيل الدخول -->
+            <div id="login-section" class="login-form">
+                <h2 id="login-title">🔐 تسجيل دخول المدير</h2>
+                <div class="form-group">
+                    <label id="password-label">كلمة المرور:</label>
+                    <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="btn" onclick="adminLogin()" id="login-btn">دخول</button>
+                <button class="btn btn-danger" onclick="backToMenu()" id="back-to-menu-btn">العودة للمنيو</button>
+                <div id="login-error" class="error-message" style="display: none;"></div>
+            </div>
+            
+            <!-- محتوى لوحة التحكم -->
+            <div id="admin-content" class="admin-content">
+                <div class="admin-header">
+                    <h2 id="admin-title">👑 لوحة تحكم المدير</h2>
+                    <div>
+                        <button class="btn" onclick="backToMenu()" id="view-menu-btn">عرض المنيو</button>
+                        <button class="btn btn-danger" onclick="adminLogout()" id="logout-btn">تسجيل خروج</button>
+                        <button class="btn" onclick="refreshData()" id="refresh-btn">تحديث البيانات</button>
+                    </div>
+                </div>
+                
+                <!-- إدارة الأقسام -->
+                <div class="admin-section">
+                    <h3 id="sections-title">📁 إدارة الأقسام</h3>
+                    <div class="form-group">
+                        <input type="text" id="new-section-name" placeholder="اسم القسم الجديد">
+                        <button class="btn" onclick="addSection()" id="add-section-btn">إضافة قسم</button>
+                    </div>
+                    <div id="sections-list"></div>
+                </div>
+                
+                <!-- إدارة الأصناف -->
+                <div class="admin-section">
+                    <h3 id="items-title">🍽️ إدارة الأصناف</h3>
+                    <button class="btn" onclick="showAddItemModal()" id="add-item-btn">إضافة صنف جديد</button>
+                    <div id="items-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نافذة إضافة/تعديل الصنف -->
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeItemModal()">&times;</button>
+            <h3 id="modal-title">إضافة صنف جديد</h3>
+            <form id="item-form">
+                <div class="form-group">
+                    <label id="item-name-label">اسم الصنف:</label>
+                    <input type="text" id="item-name" required>
+                </div>
+                <div class="form-group">
+                    <label id="item-price-label">السعر:</label>
+                    <input type="number" id="item-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label id="item-section-label">القسم:</label>
+                    <select id="item-section" required>
+                        <option value="">اختر القسم</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="item-image-label">رابط الصورة (اختياري):</label>
+                    <input type="url" id="item-image" placeholder="https://example.com/image.jpg">
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn" id="save-item-btn">حفظ</button>
+                    <button type="button" class="btn btn-danger" onclick="closeItemModal()" id="cancel-item-btn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // البيانات الأساسية
+        let menuData = {
+            sections: [],
+            items: []
+        };
+        
+        let currentEditingItem = null;
+        let currentSection = null;
+        let currentLanguage = 'ar'; // اللغة الافتراضية
+        
+        // كلمة المرور مشفرة لحماية أفضل على GitHub
+        let adminAttempts = 0;
+        const MAX_ATTEMPTS = 7;
+        
+        // نصوص الترجمة
+        const translations = {
+            ar: {
+                restaurantName: "التاج",
+                restaurantSubtitle: "خيارك الأفضل",
+                languageBtn: "EN",
+                loginTitle: "🔐 تسجيل دخول المدير",
+                passwordLabel: "كلمة المرور:",
+                loginBtn: "دخول",
+                backToMenuBtn: "العودة للمنيو",
+                adminTitle: "👑 لوحة تحكم المدير",
+                viewMenuBtn: "عرض المنيو",
+                logoutBtn: "تسجيل خروج",
+                refreshBtn: "تحديث البيانات",
+                sectionsTitle: "📁 إدارة الأقسام",
+                addSectionBtn: "إضافة قسم",
+                itemsTitle: "🍽️ إدارة الأصناف",
+                addItemBtn: "إضافة صنف جديد",
+                modalTitleAdd: "إضافة صنف جديد",
+                modalTitleEdit: "تعديل الصنف",
+                itemNameLabel: "اسم الصنف:",
+                itemPriceLabel: "السعر:",
+                itemSectionLabel: "القسم:",
+                itemImageLabel: "رابط الصورة (اختياري):",
+                saveItemBtn: "حفظ",
+                cancelItemBtn: "إلغاء",
+                noSections: "لا توجد أقسام متاحة",
+                noItems: "لا توجد أصناف في هذا القسم",
+                currency: "د.ع",
+                selectSection: "اختر القسم",
+                confirmDeleteSection: "هل أنت متأكد من حذف هذا القسم؟ سيتم حذف جميع الأصناف الموجودة فيه.",
+                confirmDeleteItem: "هل أنت متأكد من حذف هذا الصنف؟",
+                sectionAdded: "تم إضافة القسم بنجاح",
+                sectionDeleted: "تم حذف القسم بنجاح",
+                itemSaved: "تم حفظ الصنف بنجاح",
+                dataRefreshed: "تم تحديث البيانات",
+                requiredFields: "يرجى ملء جميع الحقول المطلوبة",
+                duplicateSection: "يوجد قسم بهذا الاسم مسبقاً"
+            },
+            en: {
+                restaurantName: "Al-Taj",
+                restaurantSubtitle: "Your Best Choice",
+                languageBtn: "AR",
+                loginTitle: "🔐 Admin Login",
+                passwordLabel: "Password:",
+                loginBtn: "Login",
+                backToMenuBtn: "Back to Menu",
+                adminTitle: "👑 Admin Dashboard",
+                viewMenuBtn: "View Menu",
+                logoutBtn: "Logout",
+                refreshBtn: "Refresh Data",
+                sectionsTitle: "📁 Sections Management",
+                addSectionBtn: "Add Section",
+                itemsTitle: "🍽️ Items Management",
+                addItemBtn: "Add New Item",
+                modalTitleAdd: "Add New Item",
+                modalTitleEdit: "Edit Item",
+                itemNameLabel: "Item Name:",
+                itemPriceLabel: "Price:",
+                itemSectionLabel: "Section:",
+                itemImageLabel: "Image URL (optional):",
+                saveItemBtn: "Save",
+                cancelItemBtn: "Cancel",
+                noSections: "No sections available",
+                noItems: "No items in this section",
+                currency: "IQD",
+                selectSection: "Select Section",
+                confirmDeleteSection: "Are you sure you want to delete this section? All items in it will be deleted.",
+                confirmDeleteItem: "Are you sure you want to delete this item?",
+                sectionAdded: "Section added successfully",
+                sectionDeleted: "Section deleted successfully",
+                itemSaved: "Item saved successfully",
+                dataRefreshed: "Data refreshed",
+                requiredFields: "Please fill all required fields",
+                duplicateSection: "A section with this name already exists"
+            }
+        };
+        
+        // تحميل البيانات عند بدء التطبيق
+        window.onload = function() {
+            // تحميل تفضيل اللغة من localStorage
+            const savedLang = localStorage.getItem('restaurantLanguage');
+            if (savedLang) {
+                currentLanguage = savedLang;
+            }
+            
+            loadData();
+            renderCategoryTabs();
+            renderMenu();
+            updateLanguageUI();
+            
+            // التحقق من وجود معامل altaj في الرابط
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('altaj') === '1' || window.location.hash === '#altaj') {
+                showAdminPanel();
+            }
+            
+            // إضافة حدث لزر تغيير اللغة
+            document.getElementById('language-btn').addEventListener('click', toggleLanguage);
+        };
+        
+        // تبديل اللغة
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('restaurantLanguage', currentLanguage);
+            updateLanguageUI();
+            
+            // تغيير اتجاه الصفحة
+            document.getElementById('html-root').dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('html-root').lang = currentLanguage;
+            
+            // إضافة تأثير الانتقال
+            const elements = document.querySelectorAll('#customer-view > *:not(.header), #admin-panel > *');
+            elements.forEach(el => {
+                el.classList.remove('fade-in');
+                setTimeout(() => el.classList.add('fade-in'), 10);
+            });
+        }
+        
+        // تحديث واجهة المستخدم حسب اللغة
+        function updateLanguageUI() {
+            const lang = translations[currentLanguage];
+            
+            // تحديث النصوص
+            document.getElementById('restaurant-name').textContent = lang.restaurantName;
+            document.getElementById('logo-text').textContent = lang.restaurantName;
+            document.getElementById('restaurant-subtitle').textContent = lang.restaurantSubtitle;
+            document.getElementById('language-text').textContent = lang.languageBtn;
+            
+            // نصوص لوحة التحكم
+            if (document.getElementById('login-title')) {
+                document.getElementById('login-title').textContent = lang.loginTitle;
+                document.getElementById('password-label').textContent = lang.passwordLabel;
+                document.getElementById('login-btn').textContent = lang.loginBtn;
+                document.getElementById('back-to-menu-btn').textContent = lang.backToMenuBtn;
+                document.getElementById('admin-title').textContent = lang.adminTitle;
+                document.getElementById('view-menu-btn').textContent = lang.viewMenuBtn;
+                document.getElementById('logout-btn').textContent = lang.logoutBtn;
+                document.getElementById('refresh-btn').textContent = lang.refreshBtn;
+                document.getElementById('sections-title').textContent = lang.sectionsTitle;
+                document.getElementById('add-section-btn').textContent = lang.addSectionBtn;
+                document.getElementById('items-title').textContent = lang.itemsTitle;
+                document.getElementById('add-item-btn').textContent = lang.addItemBtn;
+                
+                // نصوص النافذة المنبثقة
+                document.getElementById('modal-title').textContent = lang.modalTitleAdd;
+                document.getElementById('item-name-label').textContent = lang.itemNameLabel;
+                document.getElementById('item-price-label').textContent = lang.itemPriceLabel;
+                document.getElementById('item-section-label').textContent = lang.itemSectionLabel;
+                document.getElementById('item-image-label').textContent = lang.itemImageLabel;
+                document.getElementById('save-item-btn').textContent = lang.saveItemBtn;
+                document.getElementById('cancel-item-btn').textContent = lang.cancelItemBtn;
+            }
+            
+            // إعادة عرض القوائم إذا كانت اللغة تغير اتجاه النص
+            renderCategoryTabs();
+            renderMenu();
+        }
+        
+        // حفظ البيانات في localStorage
+        
+async function saveData() {
+    try {
+        await db.collection("menu").doc("data").set(menuData);
+        console.log('✅ تم حفظ البيانات على Firestore');
+    } catch (error) {
+        console.error("❌ خطأ أثناء الحفظ:", error);
+    }
+
+            localStorage.setItem('menuSections', JSON.stringify(menuData.sections));
+            localStorage.setItem('menuItems', JSON.stringify(menuData.items));
+            console.log('تم حفظ البيانات في localStorage');
+        }
+        
+        // تحميل البيانات من localStorage
+        
+async function loadData() {
+    try {
+        const doc = await db.collection("menu").doc("data").get();
+        if (doc.exists) {
+            menuData = doc.data();
+            if (menuData.sections.length > 0) {
+                currentSection = menuData.sections[0].id;
+            }
+            console.log('✅ تم تحميل البيانات من Firestore');
+        } else {
+            console.warn("⚠️ لا توجد بيانات محفوظة في Firestore");
+        }
+    } catch (error) {
+        console.error("❌ خطأ أثناء التحميل:", error);
+    }
+
+            // حاول تحميل البيانات من localStorage
+            const savedSections = localStorage.getItem('menuSections');
+            const savedItems = localStorage.getItem('menuItems');
+            
+            menuData.sections = savedSections ? JSON.parse(savedSections) : [
+                { id: 1, name: 'سلطة فواكه' },
+                { id: 2, name: 'كوكتيل' },
+                { id: 3, name: 'عصير طبيعي' },
+                { id: 4, name: 'عنصير طبيعي' },
+            ];
+            
+            menuData.items = savedItems ? JSON.parse(savedItems) : [
+                { id: 1, name: 'فواكه', price: 6500, sectionId: 1, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=300&fit=crop' },
+                { id: 2, name: 'اوتيل', price: 6500, sectionId: 2, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=300&h=300&fit=crop' },
+                { id: 3, name: 'قشطة وعسل', price: 6500, sectionId: 1, image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop' },
+                { id: 4, name: 'لوتس', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=300&h=300&fit=crop' },
+                { id: 5, name: 'اوريو', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=300&fit=crop' },
+                { id: 6, name: 'تويكس', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1553787499-6bc07d4caa59?w=300&h=300&fit=crop' },
+                { id: 7, name: 'تويكس', price: 7000, sectionId: 4, image: 'https://images.unsplash.com/photo-1553787499-6bc07d4caa59?w=300&h=300&fit=crop'},
+            ];
+            
+            // تعيين القسم الأول كافتراضي
+            if (menuData.sections.length > 0) {
+                currentSection = menuData.sections[0].id;
+            }
+        }
+        
+        // تحديث جميع البيانات
+        function refreshData() {
+            loadData();
+            renderAdminSections();
+            renderAdminItems();
+            renderCategoryTabs();
+            renderMenu();
+            updateSectionOptions();
+            
+            const lang = translations[currentLanguage];
+            alert(lang.dataRefreshed);
+        }
+        
+        // عرض تبويبات الأقسام
+        function renderCategoryTabs() {
+            const tabsContainer = document.getElementById('category-tabs');
+            let html = '';
+            
+            menuData.sections.forEach(section => {
+                const activeClass = section.id === currentSection ? 'active' : '';
+                html += `
+                    <button class="category-tab ${activeClass}" onclick="selectCategory(${section.id})">
+                        ${section.name}
+                    </button>
+                `;
+            });
+            
+            tabsContainer.innerHTML = html;
+        }
+        
+        // اختيار قسم
+        function selectCategory(sectionId) {
+            currentSection = sectionId;
+            renderCategoryTabs();
+            renderMenu();
+        }
+        
+        // عرض المنيو
+        function renderMenu() {
+            const menuContent = document.getElementById('menu-content');
+            const lang = translations[currentLanguage];
+            
+            if (!currentSection) {
+                menuContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>${lang.noSections}</h3>
+                    </div>
+                `;
+                return;
+            }
+            
+            const sectionItems = menuData.items.filter(item => item.sectionId === currentSection);
+            
+            if (sectionItems.length === 0) {
+                menuContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>${lang.noItems}</h3>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            sectionItems.forEach(item => {
+                const imageStyle = item.image ? 
+                    `background-image: url('${item.image}');` : 
+                    '';
+                
+                html += `
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${lang.currency} ${item.price}</div>
+                        </div>
+                        <div class="item-image" style="${imageStyle}">
+                            ${!item.image ? '🍽️' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            menuContent.innerHTML = html;
+        }
+        
+        // عرض لوحة التحكم
+        function showAdminPanel() {
+            document.getElementById('customer-view').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+        }
+        
+        // العودة للمنيو
+        function backToMenu() {
+            document.getElementById('customer-view').style.display = 'block';
+            document.getElementById('admin-panel').style.display = 'none';
+            
+            // إزالة معامل altaj من الرابط
+            const url = new URL(window.location);
+            url.searchParams.delete('altaj');
+            url.hash = '';
+            window.history.replaceState({}, document.title, url.pathname);
+        }
+        
+        // تسجيل دخول المدير
+        async function adminLogin() {
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('login-error');
+            const lang = translations[currentLanguage];
+            
+            // التحقق من عدد المحاولات
+            if (adminAttempts >= MAX_ATTEMPTS) {
+                errorDiv.textContent = 'Maximum attempts exceeded. Please try again later.';
+                errorDiv.style.display = 'block';
+                document.getElementById('admin-password').disabled = true;
+                return;
+            }
+            
+            // كلمة المرور (يجب تغييرها في الإنتاج)
+            if (password === 'altaj1997') {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                document.getElementById('admin-password').value = '';
+                errorDiv.style.display = 'none';
+                adminAttempts = 0;
+                renderAdminSections();
+                renderAdminItems();
+            } else {
+                adminAttempts++;
+                errorDiv.textContent = currentLanguage === 'ar' 
+                    ? `كلمة المرور غير صحيحة. المحاولات المتبقية: ${MAX_ATTEMPTS - adminAttempts}`
+                    : `Incorrect password. Remaining attempts: ${MAX_ATTEMPTS - adminAttempts}`;
+                errorDiv.style.display = 'block';
+                
+                if (adminAttempts >= MAX_ATTEMPTS) {
+                    errorDiv.textContent = currentLanguage === 'ar' 
+                        ? 'تم حظر المحاولات لأسباب أمنية.'
+                        : 'Attempts blocked for security reasons.';
+                    document.getElementById('admin-password').disabled = true;
+                }
+            }
+        }
+        
+        // تسجيل خروج المدير
+        function adminLogout() {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-password').disabled = false;
+            adminAttempts = 0;
+            
+            // إزالة معامل altaj من الرابط
+            const url = new URL(window.location);
+            url.searchParams.delete('altaj');
+            url.hash = '';
+            window.history.replaceState({}, document.title, url.pathname);
+        }
+        
+        // عرض الأقسام في لوحة التحكم
+        function renderAdminSections() {
+            const sectionsList = document.getElementById('sections-list');
+            let html = '';
+            
+            menuData.sections.forEach(section => {
+                html += `
+                    <div class="section-item">
+                        <h4>${section.name}</h4>
+                        <div>
+                            <button class="btn btn-danger" onclick="deleteSection(${section.id})">
+                                ${currentLanguage === 'ar' ? 'حذف' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            sectionsList.innerHTML = html;
+        }
+        
+        // عرض الأصناف في لوحة التحكم
+        function renderAdminItems() {
+            const itemsList = document.getElementById('items-list');
+            const lang = translations[currentLanguage];
+            let html = '';
+            
+            menuData.items.forEach(item => {
+                const section = menuData.sections.find(s => s.id === item.sectionId);
+                const sectionName = section ? section.name : lang.selectSection;
+                
+                html += `
+                    <div class="menu-item-admin">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>${currentLanguage === 'ar' ? 'القسم' : 'Section'}: ${sectionName} | ${currentLanguage === 'ar' ? 'السعر' : 'Price'}: ${item.price} ${lang.currency}</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning" onclick="editItem(${item.id})">
+                                ${currentLanguage === 'ar' ? 'تعديل' : 'Edit'}
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteItem(${item.id})">
+                                ${currentLanguage === 'ar' ? 'حذف' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            itemsList.innerHTML = html;
+        }
+        
+        // إضافة قسم جديد
+        function addSection() {
+            const nameInput = document.getElementById('new-section-name');
+            const name = nameInput.value.trim();
+            const lang = translations[currentLanguage];
+            
+            if (!name) {
+                alert(lang.requiredFields);
+                return;
+            }
+            
+            // التأكد من عدم وجود قسم بنفس الاسم
+            if (menuData.sections.some(s => s.name === name)) {
+                alert(lang.duplicateSection);
+                return;
+            }
+            
+            const newId = Math.max(...menuData.sections.map(s => s.id), 0) + 1;
+            menuData.sections.push({
+                id: newId,
+                name: name
+            });
+            
+            // تعيين القسم الجديد كقسم حالي إذا لم يكن هناك قسم محدد
+            if (!currentSection) {
+                currentSection = newId;
+            }
+            
+            nameInput.value = '';
+            saveData();
+            renderAdminSections();
+            renderCategoryTabs();
+            renderMenu();
+            updateSectionOptions();
+            
+            alert(lang.sectionAdded);
+        }
+        
+        // حذف قسم
+        function deleteSection(id) {
+            const lang = translations[currentLanguage];
+            
+            if (!confirm(lang.confirmDeleteSection)) {
+                return;
+            }
+            
+            // حذف القسم والأصناف المرتبطة به
+            menuData.sections = menuData.sections.filter(s => s.id !== id);
+            menuData.items = menuData.items.filter(i => i.sectionId !== id);
+            
+            // تحديث القسم الحالي
+            if (currentSection === id || menuData.sections.length === 0) {
+                currentSection = menuData.sections.length > 0 ? menuData.sections[0].id : null;
+            }
+            
+            // حفظ البيانات وإعادة الرسم
+            saveData();
+            renderAdminSections();
+            renderAdminItems();
+            renderCategoryTabs();
+            renderMenu();
+            updateSectionOptions();
+            
+            alert(lang.sectionDeleted);
+        }
+        
+        // عرض نافذة إضافة الصنف
+        function showAddItemModal() {
+            currentEditingItem = null;
+            const lang = translations[currentLanguage];
+            document.getElementById('modal-title').textContent = lang.modalTitleAdd;
+            document.getElementById('item-form').reset();
+            updateSectionOptions();
+            document.getElementById('item-modal').style.display = 'block';
+        }
+        
+        // تعديل صنف
+        function editItem(id) {
+            const item = menuData.items.find(i => i.id === id);
+            if (!item) return;
+            
+            currentEditingItem = item;
+            const lang = translations[currentLanguage];
+            document.getElementById('modal-title').textContent = lang.modalTitleEdit;
+            document.getElementById('item-name').value = item.name;
+            document.getElementById('item-price').value = item.price;
+            document.getElementById('item-section').value = item.sectionId;
+            document.getElementById('item-image').value = item.image || '';
+            
+            updateSectionOptions();
+            document.getElementById('item-modal').style.display = 'block';
+        }
+        
+        // إغلاق نافذة الصنف
+        function closeItemModal() {
+            document.getElementById('item-modal').style.display = 'none';
+            currentEditingItem = null;
+        }
+        
+        // تحديث خيارات الأقسام
+        function updateSectionOptions() {
+            const select = document.getElementById('item-section');
+            const lang = translations[currentLanguage];
+            
+            select.innerHTML = `<option value="">${lang.selectSection}</option>`;
+            
+            menuData.sections.forEach(section => {
+                select.innerHTML += `<option value="${section.id}">${section.name}</option>`;
+            });
+        }
+        
+        // حفظ الصنف
+        document.getElementById('item-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const lang = translations[currentLanguage];
+            
+            const name = document.getElementById('item-name').value.trim();
+            const price = parseFloat(document.getElementById('item-price').value);
+            const sectionId = parseInt(document.getElementById('item-section').value);
+            const image = document.getElementById('item-image').value.trim();
+            
+            if (!name || !price || !sectionId) {
+                alert(lang.requiredFields);
+                return;
+            }
+            
+            if (currentEditingItem) {
+                // تعديل صنف موجود
+                currentEditingItem.name = name;
+                currentEditingItem.price = price;
+                currentEditingItem.sectionId = sectionId;
+                currentEditingItem.image = image;
+            } else {
+                // إضافة صنف جديد
+                const newId = Math.max(...menuData.items.map(i => i.id), 0) + 1;
+                menuData.items.push({
+                    id: newId,
+                    name: name,
+                    price: price,
+                    sectionId: sectionId,
+                    image: image
+                });
+            }
+            
+            saveData();
+            renderAdminItems();
+            renderMenu();
+            closeItemModal();
+            
+            alert(lang.itemSaved);
+        });
+        
+        // حذف صنف
+        function deleteItem(id) {
+            const lang = translations[currentLanguage];
+            
+            if (!confirm(lang.confirmDeleteItem)) {
+                return;
+            }
+            
+            menuData.items = menuData.items.filter(i => i.id !== id);
+            
+            saveData();
+            renderAdminItems();
+            renderMenu();
+        }
+        
+        // إغلاق النوافذ المنبثقة عند النقر خارجها
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('item-modal');
+            if (e.target === modal) {
+                closeItemModal();
+            }
+        });
+
+        // تأثيرات إضافية للشعار
+        const logo = document.querySelector('.logo');
+        if (logo) {
+            logo.addEventListener('mouseover', () => {
+                logo.style.boxShadow = '0 10px 25px rgba(184, 134, 11, 0.5)';
+            });
+            
+            logo.addEventListener('mouseout', () => {
+                logo.style.boxShadow = '0 8px 20px rgba(184, 134, 11, 0.3)';
+            });
+        }
+        
+        // تأثيرات للعناصر عند التمرير
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const header = document.querySelector('.header');
+            
+            if (header) {
+                if (scrollPosition > 10) {
+                    header.style.boxShadow = '0 2px 10px rgba(184, 134, 11, 0.2)';
+                } else {
+                    header.style.boxShadow = '0 5px 15px rgba(184, 134, 11, 0.1)';
+                }
+            }
+        });
+        
+        // تأثيرات للتبويبات
+        const tabs = document.querySelectorAll('.category-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('mouseover', () => {
+                if (!tab.classList.contains('active')) {
+                    tab.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            tab.addEventListener('mouseout', () => {
+                if (!tab.classList.contains('active')) {
+                    tab.style.transform = '';
+                }
+            });
+        });
+        
+        // تأثيرات للعناصر في لوحة التحكم
+        const adminItems = document.querySelectorAll('.section-item, .menu-item-admin');
+        adminItems.forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.style.borderColor = 'var(--primary-color)';
+            });
+            
+            item.addEventListener('mouseout', () => {
+                item.style.borderColor = 'var(--border-color)';
+            });
+        });
+    </script>
+</body>
+</html>
